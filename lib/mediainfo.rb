@@ -115,6 +115,12 @@ module MediaInfo
     name.gsub!('.','_') if name.include?('.') ## period in name
     name.downcase!
     # Create singleton_method
+
+    hashed_attributes = object.instance_variable_get("@hashed_attributes")
+    hashed_attributes ||= {}
+    hashed_attributes[name] = parameters
+    object.instance_variable_set("@hashed_attributes", hashed_attributes)
+
     object.instance_variable_set("@#{name}",parameters)
     object.define_singleton_method name do
       object.instance_variable_get "@#{name}"

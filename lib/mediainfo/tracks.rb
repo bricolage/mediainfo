@@ -72,10 +72,13 @@ module MediaInfo
     end
 
     class Attributes
-
       # Needed so that sanitize_elements doesn't throw NoMethodError
       def method_missing( name, *args )
         nil # We use nil here instead of false as nil should be understood by the client/requester as false. We might not want to specifically return false for other missing methods
+      end
+
+      def to_h
+        @hashed_attributes
       end
 
       def initialize(params)
